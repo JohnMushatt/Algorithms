@@ -5,7 +5,7 @@ import algs.hw1.arraysearch.UnknownArraySearch;
 /**
  * This is provided as an example to show how you will modify the necessary classes
  * for this assignment.
- * 
+ *
  * You do not need to copy or modify this method for this assignment.
  */
 public class UnknownArraySolution extends UnknownArraySearch {
@@ -14,10 +14,10 @@ public class UnknownArraySolution extends UnknownArraySearch {
 	public UnknownArraySolution(int[][] a) {
 		super(a);
 	}
-	
-	/** Be sure that you call your class constructor. Do not modify this method. */ 
+
+	/** Be sure that you call your class constructor. Do not modify this method. */
 	public static void main (String args[]) {
-		int[][] ar = UnknownArraySearch.create(3);
+		int[][] ar = UnknownArraySearch.create(13);
 		new UnknownArraySolution(ar).trial();
 	}
 }
