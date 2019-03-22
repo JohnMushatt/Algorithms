@@ -27,11 +27,11 @@ Q3. Counting Computations Exercise (20 Points):
 
 3.1 Enter formula for computing number of array inspections for UnknownArraySolution
 
-   f(n) = ...
+   f(n) = x^5 -1.5x^4 + .5x^2
 
 3.2 Enter formula for computing number of array inspections for ImprovedUnknownArraySolution
 
-   g(n) = ...
+   g(n) = x^5 -1.5x^4 -x^3 + 3.5x^2
    
 
 Q4. Stack Programming Exercise (20 Points):
@@ -48,7 +48,7 @@ There are some bonus questions on the homework. If you attempt these, be sure to
 clearly identify that you have done so in this written homework
 
 Q2.1.1 Bonus
-Q2.2.1 Bonus
+Q2.2.1 Bonus My search achieves 16394 inspections
 Q2.3.1 Bonus
 BQ5 FractalArraySolution
 

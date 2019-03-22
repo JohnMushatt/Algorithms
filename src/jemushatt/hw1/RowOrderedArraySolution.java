@@ -20,9 +20,6 @@ public class RowOrderedArraySolution extends RowOrderedArraySearch {
 	public int[] locate(int target) {
 
 		int n = this.length();
-		int max = n - 1;
-		int min = 0;
-
 		int start = 0;
 		int mid, row, col, value;
 		int end = n * n - 1;
