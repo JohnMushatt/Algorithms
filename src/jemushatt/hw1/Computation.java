@@ -33,6 +33,11 @@ public class Computation {
 		
 		return nums;
 	}
+	/**
+	 * Insert the provided Long at the bottom of the stack, for reversal
+	 * @param list
+	 * @param num
+	 */
 	private static void insertAtBottom(Stack<Long> list, Long num) {
 		if(list.size()>0) {
 			Long temp = list.peek();
@@ -44,6 +49,11 @@ public class Computation {
 			list.push(num);
 		}
 	}
+	/**
+	 * Reverse the stack
+	 * @param list
+	 * @return
+	 */
 	private static Stack<Long> reverse(Stack<Long> list) {
 		
 		if(list.size()>0) {
@@ -93,43 +103,6 @@ public class Computation {
 			
 		} catch (Exception e) {
 			System.out.println(s + " is not an integer.");
-		}
-		
-		Stack<Long> factors = new Stack<Long>();
-		int val = 144;
-		factors.push((long) 3);
-		factors.push((long) 3);
-		factors.push((long) 2);
-		factors.push((long) 2);
-		factors.push((long) 2);
-		factors.push((long) 2);
-		if (isSquare(factors)) {
-			System.out.println(val + " is a perfect square.");
-		} else {
-			System.out.println(val + " is NOT a perfect square.");
-		}
-		factors = new Stack<Long>();
-		val = 120;
-		factors.push((long) 5);
-		factors.push((long) 3);
-		factors.push((long) 2);
-		factors.push((long) 2);
-		factors.push((long) 2);
-		if (isSquare(factors)) {
-			System.out.println(val + " is a perfect square.");
-		} else {
-			System.out.println(val + " is NOT a perfect square.");
-		}
-		
-		factors = new Stack<Long>();
-		val = 2913849;
-		factors.push((long) 1707);
-		factors.push((long) 1707);
-	
-		if (isSquare(factors)) {
-			System.out.println(val + " is a perfect square.");
-		} else {
-			System.out.println(val + " is NOT a perfect square.");
 		}
 	}
 }

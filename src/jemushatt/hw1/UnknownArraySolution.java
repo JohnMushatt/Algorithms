@@ -17,7 +17,9 @@ public class UnknownArraySolution extends UnknownArraySearch {
 
 	/** Be sure that you call your class constructor. Do not modify this method. */
 	public static void main (String args[]) {
-		int[][] ar = UnknownArraySearch.create(16);
-		new UnknownArraySolution(ar).trial();
+		for(int i = 1; i < 25;i++) {
+			int[][] ar = UnknownArraySearch.create(i);
+			new UnknownArraySolution(ar).trial();
+		}
 	}
 }
