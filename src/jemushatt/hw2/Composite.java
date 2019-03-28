@@ -1,7 +1,8 @@
 package jemushatt.hw2;
 
 import java.math.BigInteger;
-import java.util.Stack;
+
+import edu.princeton.cs.algs4.Stack;
 
 /**
  * Homework 2, Question 3: Data Type Exercise
@@ -33,7 +34,7 @@ public class Composite {
 			throw new IllegalArgumentException ("Composite must be a non-negative value.");
 		}
 		else {
-			
+			factorize(val);
 		}
 		// FILL in here
 	}
@@ -256,26 +257,76 @@ public class Composite {
 	}
 	 */
 	/**
+	 * Insert the provided Long at the bottom of the stack, for reversal
+	 * @param list
+	 * @param num
+	 */
+	private static void insertAtBottom(Stack<Long> list, Long num) {
+		if(list.size()>0) {
+			Long temp = list.peek();
+			list.pop();
+			insertAtBottom(list,num);
+			list.push(temp);
+		}
+		else {
+			list.push(num);
+		}
+	}
+	/**
+	 * Reverse the stack
+	 * @param list
+	 * @return
+	 */
+	private static Stack<Long> reverse(Stack<Long> list) {
+		
+		if(list.size()>0) {
+			Long first = list.peek();
+			list.pop();
+			reverse(list);
+			insertAtBottom(list,first);
+
+		}
+		return list;
+	}
+	/**
 	 * Return Composite number with linked list of factors in ascending order. 
 	 *  
 	 * @param num
 	 * @return
 	 */
 	public static Composite factorize(BigInteger num) {
-		Composite number = null;
-		Long n = num.longValue();
-		//Count up, getting all factors
+		Composite number = new Composite();
+		number.head = new Node(0,0);
+		//System.out.println("Current number: " +number);
+		Node current = number.head;
+		Stack<Long> nums = new Stack<Long>();
+		long n = num.longValue();
+		
 		for(int i = 2; i <= n; i++) {
-			long factor = (long)(i);
-			long power = 0;
-			//If it evenly divides the num
 			while(n %i ==0) {
-				if()
-				
+				nums.push((long) i);
 				n = n/i; 
 			}
 		}
-		
+		nums = reverse(nums);
+		Long factor = (long) 1;
+		Long oldFactor = factor;
+		int power = 1;
+		for(int i =0; i < nums.size();i++) {
+			//If the current factor is different than the next factor
+			if(nums.size()>0) {
+				factor = nums.pop();
+				if(factor==oldFactor) {
+					power++;
+				}
+				else {
+					current.factor=factor;
+					current.power=power;
+					current.next = new Node(0,0);
+					current = current.next;
+				}
+			}
+		}
 		return number;
 	}
 }
