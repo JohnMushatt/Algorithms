@@ -1,8 +1,5 @@
 package jemushatt.hw2;
 
-import java.math.BigInteger;
-import java.util.Random;
-
 import junit.framework.TestCase;
 
 public class TestComposite extends TestCase {
@@ -72,6 +69,7 @@ public class TestComposite extends TestCase {
 	}
 
 	// Try to random large primes and validate they add together and provide result.
+	/*
 	public void testStressTest() {
 		BigInteger prime1 = new BigInteger(32, 64, new Random());
 		BigInteger prime2 = new BigInteger(32, 64, new Random());
@@ -84,7 +82,7 @@ public class TestComposite extends TestCase {
 		Composite c3 = c1.add(c2);
 		assertEquals (c3.value(), prime1.add(prime2));
 	}
-	
+	*/
 	
 	// lots of special cases when unit values are in play.
 	public void testUnit() {
