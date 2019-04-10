@@ -1,21 +1,17 @@
 package jemushatt.hw2;
 
-import edu.princeton.cs.algs4.StdOut;
-
-/**
- * This cousin to BinarySearch attempts to locate a value by dividing the array into "thirds"
- * and checking within each third for the target value.
- */
 public class TertiarySearch {
 
 	/** Record the number of inspections. */
 	static int numInspections = 0;
-	
+	static int bnumInspections = 0;
+
 	/**
-	 * Request tertiary array search on the given collection and return whether value was found.
+	 * Request tertiary array search on the given collection and return whether
+	 * value was found.
 	 * 
-	 * After this function completes, the static value numInspections records the total number
-	 * of array inspections needed.
+	 * After this function completes, the static value numInspections records the
+	 * total number of array inspections needed.
 	 * 
 	 * Note numInspections is reset each time this function is called.
 	 * 
@@ -25,57 +21,148 @@ public class TertiarySearch {
 	 * @param target
 	 * @return
 	 */
-	public static boolean find (int[] collection, int target) {
+	public static boolean find(int[] collection, int target) {
 		numInspections = 0;
 		return find(collection, target, 0, collection.length - 1);
 	}
-	
+
 	/**
-	 * Given an array of ascending values, subdvide into "thirds" and attempt to locate
-	 * recursively using a Tertiary Array Search.
-	 * 
-	 * You do not need to modify this method. You should not call this method directly.
-	 * Rather call find(collection, target).
-	 *  
-	 * @param collection    ascending order collection
-	 * @param target        target to be sought
-	 * @param lo            low end of range within which search proceeds (inclusive)
-	 * @param hi            high end of range within which searhc proceeds (inclusive)
+	 * Same as above function - but for binary search (for comparison bonus question
+	 * 1.2)
 	 */
-	static boolean find (int[] collection, int target, int lo, int hi) {
+	public static boolean binaryFind(int[] collection, int target) {
+		bnumInspections = 0;
+		return binarySearch(collection, target);
+	}
+
+	/**
+	 * Given an array of ascending values, subdvide into "thirds" and attempt to
+	 * locate recursively using a Tertiary Array Search.
+	 * 
+	 * You do not need to modify this method. You should not call this method
+	 * directly. Rather call find(collection, target).
+	 * 
+	 * @param collection ascending order collection
+	 * @param target     target to be sought
+	 * @param lo         low end of range within which search proceeds (inclusive)
+	 * @param hi         high end of range within which searhc proceeds (inclusive)
+	 */
+	static boolean find(int[] collection, int target, int lo, int hi) {
 		while (lo <= hi) {
-			int len = (hi-lo)/3;
+			int len = (hi - lo) / 3;
 			int left = lo + len;
-					
-			int rc = collection[left] - target; numInspections++;
+			int rc = collection[left] - target;
+			numInspections++;
 			if (rc > 0) {
-				return find (collection, target, lo, left-1);         // lower third
+				return find(collection, target, lo, left - 1); // lower third
 			} else if (rc < 0) {
 				int right = left + len + 1;
-				rc = collection[right] - target; numInspections++;
+				rc = collection[right] - target;
+				numInspections++;
 
 				if (rc > 0) {
-					return find(collection, target, left+1, right-1); // middle third
+					return find(collection, target, left + 1, right - 1); // middle third
 				} else if (rc < 0) {
-					return find(collection, target, right+1, hi);     // upper third
+					return find(collection, target, right + 1, hi); // upper third
 				} else {
-					return true;                                      // found at right
+					return true; // found at right
 				}
 			} else {
-				return true;                                          // found at original left
+				return true; // found at original left
 			}
 		}
-		
 		return false;
 	}
-	
-	public static void main(String[] args) {
-		StdOut.println("N\tMax\tTotal\tFull Counts");
-		for (int n = 1; n <= 20; n++) {
-			
-			// Complete with your code. Create an array of size N populated with 
-			// The integers from 0 to N-1 in ascending order and perform the necessary
-			// computations to reproduce the table from the homework.
+
+	/**
+	 * Binary search function for comparison to TertiarySearch
+	 * 
+	 * @param collection ascending order collection
+	 * @param target     target to be sought
+	 */
+	static boolean binarySearch(int[] collection, int target) {
+		int low = 0;
+		int high = collection.length - 1;
+
+		while (low <= high) {
+			int mid = (low + high) / 2;
+
+			int rc = collection[mid] - target;
+			bnumInspections++;
+			if (rc < 0) {
+				low = mid + 1;
+			} else if (rc > 0) {
+				high = mid - 1;
+			} else {
+				return true;
+			}
 		}
+		return false;
+	}
+
+	public static void main(String[] args) {
+		System.out.println("N\tMax\tTotal\tFull Counts");
+		int total = 0;
+		int max = Integer.MAX_VALUE;
+		String fullCounts = "";
+		for (int n = 1; n <= 20; n++) {
+			int[] collection = new int[n];
+			for (int i = 0; i < n; i++) {
+				// creating n arrays with 0 to n-1 as their data
+				collection[i] = i;
+			}
+			for (int y = 0; y < collection.length; y++) {
+				find(collection, y);
+				// numInspections is reset at start of find
+				total += numInspections;
+				if (max < numInspections) {
+					max = numInspections;
+				}
+				if (y == 0) {
+					fullCounts = fullCounts + numInspections;
+				} else if (y > 0) {
+					fullCounts = fullCounts + "," + numInspections;
+				}
+			}
+			System.out.println(n + "\t" + max + "\t" + total + "\t" + fullCounts);
+			max = Integer.MAX_VALUE;
+			total = 0;
+			fullCounts = "";
+		}
+		System.out.println("\nQ1.2:\n");
+		System.out.println("N" + "\t" + "Tertiary" + "\t" + "Binary");
+		// we must find average number of inspections for arrays of size 3^k for k=1..10
+		int size;
+		//teriary search avg
+		int TertAvg = 0;
+		//Binary search avg
+		int BinAvg = 0;
+		//End node for tertiary avg
+		int terminaltertavg = 0;
+		//End node for binary avg
+		int EndBinAvg = 0;
+		int[] collection = null;
+		for (int k = 1; k <= 10; k++) {
+			size = (int) Math.pow(3, k);
+			collection = new int[size];
+			for (int i = 0; i < size; i++) {
+				collection[i] = i;
+				TertAvg = 0;
+				BinAvg = 0;
+			}
+			for (int j = 0; j < size; j++) { // getting of # of inspections for each method
+				find(collection, j);
+				binaryFind(collection, j);
+				BinAvg += bnumInspections;
+				TertAvg += numInspections;
+			}
+			TertAvg = TertAvg / (size - 1);
+			BinAvg = BinAvg / (size - 1);
+			terminaltertavg += TertAvg;
+			EndBinAvg += BinAvg;
+			System.out.println("3^" + k + "\t" + TertAvg + "\t\t" + BinAvg);
+		}
+		System.out.println("\nSum of average number of inspections: ");
+		System.out.println("TertiarySearch: " + terminaltertavg + "\t" + "Binary: " + EndBinAvg);
 	}
 }

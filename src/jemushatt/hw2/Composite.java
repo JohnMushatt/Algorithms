@@ -1,6 +1,8 @@
 package jemushatt.hw2;
 
 import java.math.BigInteger;
+import java.util.HashMap;
+import java.util.Map;
 
 import edu.princeton.cs.algs4.Stack;
 
@@ -53,7 +55,7 @@ public class Composite {
 	 * that the Composite object returned is treated like the value 1.
 	 */
 	Composite() {
-
+		this.head = new Node(1,1);
 	}
 
 	/**
@@ -115,9 +117,8 @@ public class Composite {
 		Node current = this.head;
 		while (current != null) {
 			long term = current.factor;
-			for (int i = 0; i < current.power; i++) {
-				term *= term;
-			}
+			int power = current.power;
+			term = (long) Math.pow(term, power);
 			val = new BigInteger("" + val.longValue() * term);
 			current = current.next;
 		}
@@ -132,18 +133,33 @@ public class Composite {
 	 * See https://en.wikipedia.org/wiki/Prime_number#Primality_of_one
 	 */
 	public boolean isPrime() {
-		// REPLACE WITH WORKING CODE
-		boolean FIX_ME = true;
-		return FIX_ME;
+		boolean isPrime = false;
+		int count =1;
+		Node current = this.head;
+		while(current!=null) {
+			count*=current.power;
+			current = current.next;
+		}
+		if(this.head.factor==1) {
+			return false;
+		}
+		else if(this.head.factor==2  && this.head.power==1&& this.head.next==null) {
+			return true;
+		}
+		else if(count>=2) {
+			return false;
+		}
+		return isPrime;
 	}
 
 	/**
 	 * Determine if Composite represents the unit number 1.
 	 */
 	public boolean isUnit() {
-		// REPLACE WITH WORKING CODE
-		boolean FIX_ME = true;
-		return FIX_ME;
+		if(this.head.factor==1) {
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -175,9 +191,12 @@ public class Composite {
 	 * @return
 	 */
 	public Composite add(Composite comp) {
-		// REPLACE WITH WORKING CODE
-		Composite FIX_ME = null;
-		return FIX_ME;
+		//return new Composite(this.value().add(comp.value()));
+		Composite number = null;
+		BigInteger numerator = this.value().add(comp.value());
+		BigInteger denomenator = this.gcd(comp).value();
+		BigInteger result = numerator.divide(denomenator);
+		return number = new Composite(result.multiply(denomenator));
 	}
 
 	/**
@@ -194,9 +213,34 @@ public class Composite {
 	 * @return
 	 */
 	public Composite multiply(Composite comp) {
-		// REPLACE WITH WORKING CODE
-		Composite FIX_ME = null;
-		return FIX_ME;
+		if(comp.head.factor==1) {
+			return this;
+		}
+		else if(this.head.factor==1) {
+			return comp;
+		}
+		else {
+			Composite num = null;
+			Node currentThis = this.head;
+			Node currentComp = comp.head;
+			BigInteger thisSum = new BigInteger("1");
+			BigInteger compSum = new BigInteger("1");
+			while(currentThis!=null) {
+				Long val = (long) Math.pow(currentThis.factor,currentThis.power);
+				thisSum.multiply(new BigInteger("" + val));
+				currentThis = currentThis.next;
+			}
+			while(currentComp!=null) {
+				Long val = (long) Math.pow(currentComp.factor,currentComp.power);
+
+				compSum.multiply(new BigInteger("" + val));
+
+				//compSum *= (long) Math.pow(currentComp.factor,currentComp.power);
+				currentComp = currentComp.next;
+
+			}
+			return new Composite(thisSum.multiply(compSum));
+		}
 	}
 
 	/**
@@ -216,6 +260,9 @@ public class Composite {
 	 * @return the greatest common divisor between this and comp.
 	 */
 	public Composite gcd(Composite comp) {
+		if(this.value().equals(comp.value())) {
+			return new Composite(this.value());
+		}
 		Node thisNode = this.head;
 		Node otherNode = comp.head;
 		if (this.head.factor == 1 || comp.head.factor == 1) {
@@ -229,9 +276,15 @@ public class Composite {
 			while (otherNode.next != null && !done) {
 				long otherSmallest = otherNode.factor;
 				if (thisSmallest == otherSmallest) {
-					int power = Math.abs(thisNode.power-otherNode.power);
-					if(power==0) {
-						power++;
+					int power =1;
+					if(thisNode.power==otherNode.power) {
+						power = thisNode.power;
+					}
+					else if(thisNode.power<otherNode.power) {
+						power = thisNode.power;
+					}
+					else {
+						power = otherNode.power;
 					}
 					gcd *= Math.pow(thisSmallest, power);
 					done =true;
@@ -239,7 +292,6 @@ public class Composite {
 					otherNode = otherNode.next;
 				}
 			}
-			done=false;
 			otherNode = comp.head;
 			thisNode = thisNode.next;
 		}
@@ -260,9 +312,47 @@ public class Composite {
 	 * @return the greatest common divisor between this and comp.
 	 */
 	public Composite lcm(Composite comp) {
-		// REPLACE WITH WORKING CODE
-		Composite FIX_ME = null;
-		return FIX_ME;
+
+		Node thisNode = this.head;
+		Node otherNode = comp.head;
+		if (this.head.factor == 1) {
+			return comp;
+
+		}
+		else if (comp.head.factor==1) {
+			return this;
+
+		}
+		HashMap<Long,Integer> factorMap = new HashMap<Long,Integer>();
+		long lcm = 1;
+		while (thisNode != null) {
+			long factor = thisNode.factor;
+			Integer power = thisNode.power;
+			if(factorMap.get(factor)==null) {
+				factorMap.put(factor, power);
+			}
+			else if(factorMap.get(factor)!=null && factorMap.get(factor).compareTo(power)<0) {
+				factorMap.put(factor,power);
+			}
+			thisNode = thisNode.next;
+		}
+		while (otherNode!= null) {
+			long factor = otherNode.factor;
+			Integer power = otherNode.power;
+			if(factorMap.get(factor)==null) {
+				factorMap.put(factor, power);
+			}
+			else if(factorMap.get(factor)!=null && factorMap.get(factor).compareTo(power)<0) {
+				factorMap.put(factor,power);
+			}
+			otherNode = otherNode.next;
+		}
+		for(Map.Entry<Long, Integer> entry: factorMap.entrySet()) {
+			Long factor = entry.getKey();
+			Integer power = entry.getValue();
+			lcm *= Math.pow(factor, power);
+		}
+		return new Composite(lcm);
 	}
 
 	/** Helper value for factorize. */
@@ -333,10 +423,21 @@ public class Composite {
 		}
 		nums = reverse(nums);
 		BigInteger factor = null;
+		if(nums.size()==0) {
+			number.head.factor=1;
+			number.head.power=1;
+			number.head.next=new Node(num.longValue(),1);
+			return number;
+		}
 		BigInteger oldFactor = new BigInteger("" + nums.pop());
 		int power = 1;
 		// for(int i =0; i < nums.size();i++) {
 		// If the stack still has elements
+		if(nums.size()==0 && oldFactor!=null) {
+			number.head.factor=oldFactor.longValue();
+			number.head.power=1;
+			return number;
+		}
 		while (nums.size() > 0) {
 			// Set factor to the next factor in the stack
 			factor = new BigInteger("" + nums.pop());
@@ -350,7 +451,6 @@ public class Composite {
 
 				current.power = power;
 				power = 1;
-				System.out.println(current);
 				current.next = new Node(0, 0);
 				current = current.next;
 				oldFactor = factor;
@@ -360,7 +460,6 @@ public class Composite {
 
 				current.power = power;
 				power = 1;
-				System.out.println(current);
 			}
 		}
 		// }
