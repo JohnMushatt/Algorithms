@@ -43,7 +43,12 @@ public class Question4 {
 
 		// Now output the number of leaves in the tree.
 		System.out.println(bt.numLeaves() + " leaves in the tree.");
-
+		//HashMap<String,Integer> top10 = new HashMap<String,Integer>();
+		for(int i =0; i < 10; i++) {
+			String word = bt.maxValue();
+			System.out.println("Word: "+word + "\tFrequency: " + bt.get(word));
+			bt.delete(word);
+		}
 		// Now output the top ten most common words. You can do this by repeatedly
 		// deleting
 		// the key value that has the maxValue in the Tree.

@@ -190,29 +190,19 @@ public class BST<Key extends Comparable<Key>, Value extends Comparable<Value>> {
 	}
 
 	private Node maxNode(Node node, Node best) {
-		// Check if current node is max value
-		if (node.val.compareTo(best.val) > 0) {
+		if(node.val.compareTo(best.val)>0) {
 			best = node;
-
 		}
-		Node rightMax = null;
-		Node leftMax = null;
-		// if we have a right child, continue, else return the max value
-		if (node.right != null) {
-			rightMax = maxNode(node.right, best);
+		if(node.right==null) {
+			if(node.val.compareTo(best.val)>0) {
+				return node;
+			}
+			else {
+				return best;
+			}
 		}
-		if (node.left != null) {
-			leftMax = maxNode(node.left, best);
-		}
-		if (leftMax == null && rightMax != null) {
-			return rightMax;
-		} else if (rightMax == null && leftMax != null) {
-			return leftMax;
-		}
-		if (rightMax.val.compareTo(leftMax.val) > 0) {
-			return rightMax;
-		} else {
-			return leftMax;
+		else {
+			return maxNode(node.right,best);
 		}
 	}
 
