@@ -1,5 +1,6 @@
 package jemushatt.hw3;
 
+import edu.princeton.cs.algs4.Queue;
 import edu.princeton.cs.algs4.StdOut;
 
 public class BST<Key extends Comparable<Key>, Value extends Comparable<Value>> {
@@ -190,20 +191,44 @@ public class BST<Key extends Comparable<Key>, Value extends Comparable<Value>> {
 	}
 
 	private Node maxNode(Node node, Node best) {
-		if(node.val.compareTo(best.val)>0) {
-			best = node;
+		
+		Value nodeVal;
+		Node left, right;
+		Node max = best;
+		Node current = null;
+		Queue<Node> q = new Queue<Node>();
+		q.enqueue(root);
+		while(q.isEmpty()==false) {
+			current = q.dequeue();
+			if(current.val.compareTo(max.val)>0) {
+				max = current;
+			}
+			if(current.left!=null) {
+				q.enqueue(current.left);
+			}
+			if(current.right!=null) {
+				q.enqueue(current.right);
+			}
 		}
-		if(node.right==null) {
-			if(node.val.compareTo(best.val)>0) {
-				return node;
+		return max;
+		/*
+		if(node!=null) {
+			nodeVal = node.val;
+			left = maxNode(node.left,best);
+			right = maxNode(node.right,best);
+			
+			if(left.val.compareTo(right.val)>0) {
+				max = left;
 			}
 			else {
-				return best;
+				max = right;
+			}
+			if(root.val.compareTo(max.val) > 0) {
+				max = root;
 			}
 		}
-		else {
-			return maxNode(node.right,best);
-		}
+		return max;
+		*/
 	}
 
 	// traversal ideas
