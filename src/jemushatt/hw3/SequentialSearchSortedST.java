@@ -118,15 +118,23 @@ public class SequentialSearchSortedST<Key extends Comparable<Key>, Value> {
 	 *
 	 * @param key
 	 */
+
+	//A = current node: 2
+	//B = target node: 5
+	//2-5 = -3
 	public void delete(Key key) {
 		Node currentNode = first;
 		Node nodeAfter = null;
 
 		while(currentNode!=null) {
 			int result = currentNode.key.compareTo(key);
-
+			//If it is not in the collection
 			if(result <0) {
 				return;
+			}
+			//If we have found the node
+			else if(result ==0) {
+
 			}
 		}
 		/*
