@@ -35,22 +35,34 @@ public class Question1 {
 		for (int i =1; Math.pow(2, i)-1 <= 4095; i++) {
 			int maxH = 0;
 			int maxR = 0;
-
-			for(int test = 0; test < 1000; test++) {
-				AVL<Integer, Boolean> testTree = new AVL<Integer, Boolean>();
+			
+			values = new int[(int)(Math.pow(2, i)-1)];
+			
+			for(int j = 0; j < Math.pow(2, i)-1;j++) {
+				values[j] = j;
+			}
+			
+			for (int i1 : values) {
+				tree.put(i1, true); // for this question, the value is ignored....
+			}
+			for(int j = 0; j <1000; j++) {
+				AVL<Integer, Boolean> test = new AVL<Integer, Boolean>();
 
 				StdRandom.shuffle(values);
-				for(int element: values) {
-					testTree.put(element, true);
+				for(int val : values) {
+					test.put(val, true);
 				}
-				if(testTree.rotations>maxR) {
-					maxR= testTree.rotations;
+				int treeH = test.height();
+				int treeR = test.rotations;
+				if(treeH > maxH) {
+					maxH = treeH;
 				}
-				if(tree.height()>maxH) {
-					maxH=testTree.height();
+				if(treeR > maxR) {
+					maxR = treeR;
 				}
 			}
-			System.out.println((int)Math.pow(2, i)-1+"\t"+maxH+"\t"+maxR);
+			System.out.println((int)  Math.pow(2, i)-1 + "\t" + maxH+"\t"+maxR);
+			
 		}
 	}
 }
