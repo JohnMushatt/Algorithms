@@ -35,13 +35,13 @@ public class Question1 {
 		for (int i =1; Math.pow(2, i)-1 <= 4095; i++) {
 			int maxH = 0;
 			int maxR = 0;
-			
+
 			values = new int[(int)(Math.pow(2, i)-1)];
-			
+
 			for(int j = 0; j < Math.pow(2, i)-1;j++) {
 				values[j] = j;
 			}
-			
+
 			for (int i1 : values) {
 				tree.put(i1, true); // for this question, the value is ignored....
 			}
@@ -62,9 +62,12 @@ public class Question1 {
 				}
 			}
 			System.out.println((int)  Math.pow(2, i)-1 + "\t" + maxH+"\t"+maxR);
-			
+
 		}
-		//Minimun # of nodes for height 4: N(4) = N(3) + N(2) + 1 -> 4 + 7 + 1 = 12
+		/*
+		 *Bonus 1.3
+		 */
+		//Minimum # of nodes for height 4: N(4) = N(3) + N(2) + 1 -> 4 + 7 + 1 = 12
 		int[] values1 = {6,2,3,4,5,12,10,9,11,8,7,1};
 		AVL<Integer, Boolean> tree1 = new AVL<Integer, Boolean>();
 		for (int i : values1) {
@@ -72,5 +75,11 @@ public class Question1 {
 		}
 		StdOut.println("Number of rotations:" + tree1.rotations);
 		StdOut.println("Height of tree:" + tree1.height());
+
+		/*
+		 * Bonus 1.4:
+		 * Minimum # of nodes for height 5: N(5) = N(3) + N(4) = 7 + 12 +1 = 20
+		 * It is not possible given the current array size of 12 elements to create and AVL tree with height 4
+		 */
 	}
 }
