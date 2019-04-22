@@ -64,5 +64,13 @@ public class Question1 {
 			System.out.println((int)  Math.pow(2, i)-1 + "\t" + maxH+"\t"+maxR);
 			
 		}
+		//Minimun # of nodes for height 4: N(4) = N(3) + N(2) + 1 -> 4 + 7 + 1 = 12
+		int[] values1 = {6,2,3,4,5,12,10,9,11,8,7,1};
+		AVL<Integer, Boolean> tree1 = new AVL<Integer, Boolean>();
+		for (int i : values1) {
+			tree1.put(i, true); // for this question, the value is ignored....
+		}
+		StdOut.println("Number of rotations:" + tree1.rotations);
+		StdOut.println("Height of tree:" + tree1.height());
 	}
 }
