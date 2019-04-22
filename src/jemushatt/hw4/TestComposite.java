@@ -3,7 +3,6 @@ package jemushatt.hw4;
 import java.math.BigInteger;
 import java.util.Random;
 
-import edu.princeton.cs.algs4.StdRandom;
 import junit.framework.TestCase;
 
 public class TestComposite extends TestCase {
@@ -34,7 +33,6 @@ public class TestComposite extends TestCase {
 
 	// Try to random large primes and validate they add together and provide result.
 	public void testStressTest() {
-		/*
 		BigInteger prime1 = new BigInteger(32, 64, new Random());
 		BigInteger prime2 = new BigInteger(32, 64, new Random());
 		Composite c1 = new Composite(prime1);
@@ -42,7 +40,6 @@ public class TestComposite extends TestCase {
 
 		assertEquals (prime1.toString(), c1.toString());
 		assertEquals (prime2.toString(), c2.toString());
-		*/
 	}
 
 	// Try to random large even numbers to compute gcd
@@ -58,7 +55,6 @@ public class TestComposite extends TestCase {
 
 
 	}
-
 	// lots of special cases when unit values are in play.
 	public void testUnit() {
 		Composite c1 = new Composite(2       *5*         11);
@@ -149,7 +145,7 @@ public class TestComposite extends TestCase {
 		Composite val1 = new Composite(2);
 		Composite val2 = new Composite(2);
 
-		int [] ar = new int[20];
+		int [] ar = new int[50];
 		int [] copy = new int[ar.length];
 		for (int i = 0; i < ar.length; i++) {
 			ar[i] = i+3;
@@ -158,7 +154,7 @@ public class TestComposite extends TestCase {
 
 		// randomize order in one. Because of commutativity property of multiplication,
 		// we will arrive at same result.
-		StdRandom.shuffle(ar);
+		//StdRandom.shuffle(ar);
 
 		for (int i = 0; i < ar.length; i++) {
 			val1 = val1.multiply(new Composite(ar[i]));
