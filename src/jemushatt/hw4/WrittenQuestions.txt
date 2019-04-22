@@ -11,14 +11,30 @@ Q1.1 Remove Rotations
 
 Q1.2 Model Number of rotations
 
-<< include the table that is generated from Question 1>>
+N		MaxHt	MaxRot
+1		0		0
+3		1		2
+7		3		8
+15		4		17
+31		5		31
+63		7		58
+127		8		113
+255		9		216
+511		10		408
+1023	12		795
+2047	13		1563
+4095	14		3024
 
 Q1.3 Bonus question 1 pt. Can you find an arrangement that
      produces a tree whose height is four or prove that one can't exist? 
      
+     Answer: {6,2,3,4,5,12,10,9,11,8,7,1}
+     
 Q1.4 Bonus question 1 pt. Can you find an arrangement that
      produces a tree whose height is five or prove that one can't exist?
-
+    Answer:
+	Minimum # of nodes for height 5: N(5) = N(3) + N(4) = 7 + 12 +1 = 20
+	It is not possible given the current array size of 12 elements to create and AVL tree with height 4
 
 Q2. Composite revisited (80 pts)
 --------------------------------------
