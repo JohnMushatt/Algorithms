@@ -149,7 +149,7 @@ public class TestComposite extends TestCase {
 		Composite val1 = new Composite(2);
 		Composite val2 = new Composite(2);
 
-		int [] ar = new int[50];
+		int [] ar = new int[20];
 		int [] copy = new int[ar.length];
 		for (int i = 0; i < ar.length; i++) {
 			ar[i] = i+3;
@@ -159,12 +159,8 @@ public class TestComposite extends TestCase {
 		// randomize order in one. Because of commutativity property of multiplication,
 		// we will arrive at same result.
 		StdRandom.shuffle(ar);
-		BigInteger v1 = new BigInteger("1");
-		BigInteger v2 = new BigInteger("1");
 
 		for (int i = 0; i < ar.length; i++) {
-			v1 = v1.multiply(new BigInteger(""+ar[i]));
-			v2 = v2.multiply(new BigInteger(""+copy[i]));
 			val1 = val1.multiply(new Composite(ar[i]));
 			val2 = val2.multiply(new Composite(copy[i]));
 		}

@@ -223,10 +223,27 @@ public class Composite {
 			return comp;
 		}
 		else {
+			BigInteger sumThis = new BigInteger("1");
+			BigInteger compThis = new BigInteger("1");
+			for(Pair<BigInteger,Integer> pairs : this.tree.pairs()) {
+				long term = pairs.key.longValue();
+				int factor = pairs.value;
+				BigInteger result  = new BigInteger("" +(long) Math.pow(term, factor));
+				sumThis = sumThis.multiply(result);
+			}
+			for(Pair<BigInteger,Integer> pairs : comp.tree.pairs()) {
+				long term = pairs.key.longValue();
+				int factor = pairs.value;
+				BigInteger result  = new BigInteger("" +(long) Math.pow(term, factor));
+				compThis = compThis.multiply(result);
+			}
+			return new Composite(sumThis.multiply(compThis));
+			/*
 			BigInteger thisVal = this.value();
 			BigInteger compVal = comp.value();
 			BigInteger product = this.value().multiply(comp.value());
 			return new Composite(product);
+			*/
 		}
 	}
 
