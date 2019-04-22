@@ -60,7 +60,6 @@ public class Composite {
 		if (val.compareTo(BigInteger.ONE) == 0) {
 			throw new IllegalArgumentException("Composite cannot be one.");
 		} else {
-			// System.out.println("Current number: " +number);
 			Stack<Long> nums = new Stack<Long>();
 			long n = val.longValue();
 
@@ -202,8 +201,10 @@ public class Composite {
 			throw new IllegalArgumentException("Factor is not prime:" + factor);
 		}
 
-		// FIX ME
-		return false;
+		if(this.tree.get(factor)!=null) {
+			return true;
+		}
+		else return false;
 	}
 
 	/**
@@ -396,7 +397,8 @@ public class Composite {
 	 * @param num
 	 */
 	public static Composite factorize(BigInteger num) {
-
+		return new Composite(num);
+		/*
 		Composite number = new Composite(num.longValue());
 		number.tree.root = null;
 		// System.out.println("Current number: " +number);
@@ -425,5 +427,6 @@ public class Composite {
 			}
 		}
 		return number;
+		*/
 	}
 }
